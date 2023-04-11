@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center" style="margin-top:100px;">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center">Kayıt Sayfası</h1>
+            </div>
+            <div class="card-body">
+                <form autocomplete="on" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+                    <div class="form-group">
+                        <label for="name">Ad Soyad</label>
+                        <input type="text" class="form-control" [(ngModel)]="model.name" name="name" id="name" #name
+                            [appValid]="name.validity.valid" required minlength="3">
+                        <div class="invalid-feedback">
+                            Ad Soyad Alanı En Az 3 Karakter Olmalıdır!
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="email">Mail Adresi</label>
+                        <input type="email" class="form-control" [(ngModel)]="model.email" name="email" id="email"
+                            #email [appValid]="email.validity.valid" required minlength="3">
+                        <div class="invalid-feedback">
+                            Geçerli Bir Mail Adresi Giriniz!
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="password">Şifre</label>
+                        <input type="password" class="form-control" [(ngModel)]="model.password" name="password"
+                            id="password" #password [appValid]="password.validity.valid" required>
+                        <div class="invalid-feedback">
+                            Şifre Alanı Boş Olamaz!
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button [disabled]="!registerForm.valid" class="btn btn-outline-success w-100"
+                            type="submit">Kayıt Ol</button>
+                        <br>
+                        <a routerLink="/login" class="mt-3" style="float: right; text-decoration:none">Giriş Yap</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

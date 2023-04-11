@@ -3,9 +3,9 @@ import { NgForm } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SharedModule } from 'src/app/common/shared/shared.module';
-import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
-import { LoginModel } from './models/login.model';
+import { AuthService } from '../../services/auth.service';
+import { LoginModel } from '../../models/login.model';
 
 @Component({
   selector: 'app-login',
