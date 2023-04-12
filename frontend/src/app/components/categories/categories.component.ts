@@ -5,20 +5,24 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from './services/category.service';
 import { CategoryModel } from './models/category.model';
 import { NgForm } from '@angular/forms';
+import { SwalService } from 'src/app/common/services/swal.service';
+import { CategoryPipe } from './pipes/category.pipe';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, CategoryPipe],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css'],
 })
 export class CategoriesComponent implements OnInit {
   categories: CategoryModel[] = [];
   updateCategory: CategoryModel = new CategoryModel();
+  search: string = '';
   constructor(
     private _toastr: ToastrService,
-    private _category: CategoryService
+    private _category: CategoryService,
+    private _swal: SwalService
   ) {}
 
   ngOnInit(): void {
@@ -50,9 +54,23 @@ export class CategoriesComponent implements OnInit {
       this._category.update(this.updateCategory, (res) => {
         this._toastr.warning(res.message);
         this.getAll();
-        let element = document.getElementById("updateModalCloseBtn");
+        let element = document.getElementById('updateModalCloseBtn');
         element?.click();
       });
     }
+  }
+
+  removeById(model: CategoryModel) {
+    this._swal.callSwal(
+      `${model.name} Kategorisini Silmek İstiyor Musunuz ?`,
+      '',
+      'Sil',
+      () => {
+        this._category.removeById(model._id, (res) => {
+          this._toastr.info(res.message);
+          this.getAll();
+        });
+      }
+    );
   }
 }
